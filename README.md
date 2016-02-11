@@ -98,7 +98,7 @@ A Single Page App needs a way of responding to user navigation. In order to perf
     * Navigate to `http://localhost:8000/#/wines` to see your new route in action! By default, Angular adds that `#` to the URL. We'll see in a few steps how to use HTML5 mode to get rid of it.
 
 
-6. Now let's add a value to `winesIndexController` (in `app.js`) so we can make sure we know how to have it show up in the view.
+6. Now let's add a value to `WinesIndexController` (in `app.js`) so we can make sure we know how to have it show up in the view.
 
 
     ```js
@@ -109,7 +109,7 @@ A Single Page App needs a way of responding to user navigation. In order to perf
 
     ```
 
-    * Update the `wines-index.html` template to include: `{{hello}}` in a tag of your choice!.  When you refresh, you should see: "wine index controller is working!" *Note: This is because the winesIndexController now contains the $scope.hello value.*
+    * Update the `wines-index.html` template to include: `{{hello}}` in a tag of your choice!.  When you refresh, you should see: "wine index controller is working!" *Note: This is because the WinesIndexController now contains the this.hello value.*
 
         `wines-index.html`
         ```html
@@ -130,7 +130,7 @@ A Single Page App needs a way of responding to user navigation. In order to perf
   * Note that a factory is provided for you.  
   <details><summary>Hint:</summary>
   ```js
-  // winesIndexController
+  // WinesIndexController
   this.wineList = WineFactory.query();
   ```  
   </details>
@@ -186,7 +186,7 @@ We'll handle urls for each individual wine with a `wine#show` route. To setup a 
 
         `app.js`
         ```javascript
-        winesShowController.$inject = ['WineFactory', '$stateParams'];
+        WinesShowController.$inject = ['WineFactory', '$stateParams'];
         function WinesShowController(WineFactory, $stateParams) {
           console.log("wine Show", $stateParams);
         }
@@ -247,16 +247,17 @@ If you want to try this, setup a node server.
 
 It's annoying to have to manually loop through our `ALL_WINES` object to find the right wine, and it doesn't really match how we'll use Angular to access data in real-world projects (with `$http`).
 
-Take a look at the block of code that starts with `factory`.  It creates and returns a `wineFactory` object.
-We haven't talked about services or factories yet, but for now just know that we'll be able to add the `wineFactory` to any controller and use it inside that controller.  
+Take a look at the block of code that starts with `factory`.  It creates and returns a `WineFactory` object.
+We haven't talked about services or factories yet, but for now just know that we'll be able to add the `WineFactory` to any controller and use it inside that controller.  
 
-1. What does the `wineFactory` `query` method do?   What about `get`?
+1. What does the `WineFactory` `query` method do?   What about `get`?
 
-1. Let's take advantage of `wineFactory`.  [Inject](https://docs.angularjs.org/guide/di) `wineFactory` into your `winesIndexController`, and use it to find all the wines instead of using `ALL_WINES` directly.
+1. Let's take advantage of `wineFactory`.  [Inject](https://docs.angularjs.org/guide/di) `WineFactory` into your `WinesIndexController`, and use it to find all the wines instead of using `ALL_WINES` directly.
 
     `app.js`
     ```js
-    app.controller('winesIndexController', ['$scope', "wineFactory", function($scope, wineFactory) {
+    WinesIndexController.$inject = ["wineFactory"] 
+    function WinesIndexController(WineFactory) {
         console.log("Wine Index")
         $scope.wines = wineFactory.query();
     }]);
