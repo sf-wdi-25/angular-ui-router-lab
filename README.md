@@ -126,14 +126,16 @@ A Single Page App needs a way of responding to user navigation. In order to perf
 
 ### Wine List Challenge
 
-1. Can you display a list of all the wines on the wines index page? (Start by using the mock data object called `ALL_WINES` at the bottom of `app.js`).
+1. Can you display a list of all the wines on the wines index page? 
   * Note that a factory is provided for you.  
+  
   <details><summary>Hint:</summary>
   ```js
   // WinesIndexController
   this.wineList = WineFactory.query();
   ```  
   </details>
+  * You may also need to inject the WineFactory dependency into the controller.
 
 1. What directive would you use to loop through a list of wines?  Use a directive to display only some of the information about each wine on the page (start with the name).
 
